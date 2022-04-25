@@ -15,14 +15,7 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: [
-                            [
-                                "@babel/preset-react"
-                            ],
-                            [
-                                '@babel/preset-env', 
-                            ],
-                        ],
+                        presets: ["@babel/preset-env","@babel/preset-react"],
                         cacheDirectory: true,
                         plugins: ['@babel/plugin-transform-runtime'],
                     }
@@ -39,6 +32,9 @@ module.exports = {
             template: path.join(__dirname, "./src/index.html"),
         }),
     ],
+    externals: {
+        'React': 'react'
+    },
     devServer: {
         static: {
             directory: path.join(__dirname, 'dist'),
