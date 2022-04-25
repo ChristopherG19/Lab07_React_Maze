@@ -12,9 +12,9 @@ const StyleSettings = css`
 padding: 1rem;
 height: 10%;
 text-align: center;
-border: 1px solid black;
 border-radius: 10px;
-background-color: #161616;
+background: rgb(255,215,0);
+background: linear-gradient(90deg, rgba(255,215,0,1) 0%, rgba(226,220,42,0.9192051820728291) 55%, rgba(236,235,164,0.9808298319327731) 100%);
 font-size: 0.8rem;
 `
 const StyleInput = css`
@@ -24,14 +24,15 @@ text-align: center;
 border: 2px solid #ffffff;
 `
 const StyleSubmit = css`
-background-color: #161616;
-border: 1px solid #ffffff;
+background: rgb(255,215,0);
+background: linear-gradient(90deg, rgba(255,215,0,1) 2%, rgba(236,235,164,0.9808298319327731) 76%);
 border-radius: 10px;
 padding: 0.4rem;
 text-align: center;
 cursor: pointer;
 margin: 1rem;
-color: #ffffff;
+color: #000;
+border: none;
 `
 const StyleContainer = css`
 display: flex;
@@ -76,17 +77,21 @@ const App = () => {
         const NewM = await MazeN(width, height)
         setMaze(NewM)
     }
+
+    const FinalMaze = async(MazeNw) => {
+        setMaze(MazeNw)
+    }
     
 
     return (
         <div id='Container' css={StyleContainer}>
-            <h1 id ="Titulo" css={StyleTitulo}>Amazeing</h1>
+            <h1 id ="Titulo" css={StyleTitulo}> Eggcellent Amazeing</h1>
             <div id="settings" css={StyleSettings}>
                 <input id="width" type="number" min="1" max="10" placeholder="Ancho" onChange={setW} css={StyleInput}/>
                 <input id="height" type="number" min="1" max="10" placeholder="Alto" onChange={setH} css={StyleInput}/>
                 <button id="submit" onClick={NewMazeGen} css={StyleSubmit}>Generar Laberinto</button>
             </div>
-            {Maze && <PrintMaze laberinto={Maze} width={width} height={height}/>}
+            {Maze && <PrintMaze laberinto={Maze} width={width} height={height} MazeTurn={FinalMaze}/>}
         </div>
     )
 }
