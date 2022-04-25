@@ -1,7 +1,44 @@
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react'
+import React from "react"
 import ReactDOM from "react-dom/client"
-import './styles.css'
 import {useState} from 'react'
 import PrintMaze from "./Components/Maze"
+
+const StyleTitulo = css`
+color: #fff;
+font-family: "Montserrat", sans-serif;
+`
+const StyleSettings = css`
+padding: 1rem;
+height: 10%;
+text-align: center;
+border: 1px solid black;
+border-radius: 10px;
+background-color: #161616;
+font-size: 0.8rem;
+`
+const StyleInput = css`
+background-color: #ffffff;
+justify-content: center;
+text-align: center;
+border: 2px solid #ffffff;
+`
+const StyleSubmit = css`
+background-color: #161616;
+border: 1px solid #ffffff;
+border-radius: 10px;
+padding: 0.4rem;
+text-align: center;
+cursor: pointer;
+margin: 1rem;
+color: #ffffff;
+`
+const StyleContainer = css`
+display: flex;
+flex-direction:column;
+align-items:center;
+`
 
 const MazeN = async (w,h) => {
 
@@ -17,13 +54,12 @@ const MazeN = async (w,h) => {
         return responseInJSON
     })
 
-    console.log("Maze: ",NewMaze)
     return NewMaze
 }
 
 const App = () => {
 
-    const [Maze, setMaze] = useState([])
+    const [Maze, setMaze] = useState(null)
     const [width, setWidth] = useState(4)
     const [height, setHeight] = useState(4)
         
@@ -41,16 +77,17 @@ const App = () => {
         const NewM = await MazeN(width, height)
         setMaze(NewM)
     }
+    
 
     return (
-        <div>
-            <h1 id ="Titulo">Amazeing</h1>
-            <form id="settings" action="">
-                <input id="width" type="number" min="1" max="10" placeholder="Ancho" onChange={setW}/>
-                <input id="height" type="number" min="1" max="10" placeholder="Alto" onChange={setH}/>
-                <input id="submit" type="submit" value="Generar laberinto" onClick={NewMazeGen}/>
-            </form>
-            <PrintMaze laberinto={Maze} width={width} height={height}/>
+        <div id='Container' css={StyleContainer}>
+            <h1 id ="Titulo" css={StyleTitulo}>Amazeing</h1>
+            <div id="settings" css={StyleSettings}>
+                <input id="width" type="number" min="1" max="10" placeholder="Ancho" onChange={setW} css={StyleInput}/>
+                <input id="height" type="number" min="1" max="10" placeholder="Alto" onChange={setH} css={StyleInput}/>
+                <button id="submit" onClick={NewMazeGen} css={StyleSubmit}>Generar Laberinto</button>
+            </div>
+            {Maze && <PrintMaze laberinto={Maze} width={width} height={height}/>}
         </div>
     )
 }
