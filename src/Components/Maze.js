@@ -1,8 +1,9 @@
+import React from "react";
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react'
-const PrintMaze = ({laberinto, width, height}) => {
+const PrintMaze = ({laberinto, width, height, MazeTurn}) => {
     
-    const widthR = parseInt(width, 10)*2 + 1
+    const widthR =  parseInt(height, 10)*2 + 1
     const heightR = (Number(width * 2) + Number( width + 1 ))
 
     const style = css`
@@ -13,6 +14,7 @@ const PrintMaze = ({laberinto, width, height}) => {
     text-align: center;
     grid-template-columns: repeat(${heightR}, 60px);
     grid-template-rows: repeat(${widthR}, 40px);
+    justify-items: center;
     `
 
     const StyleWall = css`
@@ -39,19 +41,103 @@ const PrintMaze = ({laberinto, width, height}) => {
     background-size: 20px 20px;
     `
 
+    const EggMove = () => {
+        const Move = event.key.toLowerCase();
+
+        if (Move == "arrowleft" || Move == "a"){
+            MazeTurn ((laberinto) =>{
+                const temp = [...laberinto]
+                const y = temp.findIndex((row) => {return row.indexOf("p") > -1})
+                const x = temp[y].findIndex((column) => {return column === "p"})
+
+                if(temp[y][x-1] === "+" || temp[y][x-1] === "|"){
+                    console.log("Chocaste")
+                } else if(temp[y][x-1] === "g"){
+                    temp[y][x] = " "
+                    temp[y][x-1] = "p"
+                    alert("FELICIDADES!!! Has logrado escapar. Ingresa otros valores para comenzar de nuevo")
+                    MazeTurn(null)
+                } else {
+                    temp[y][x] = " "
+                    temp[y][x-1] = "p"
+                }
+                return temp
+            })
+        } else if (Move == "arrowright" || Move == "d") {
+            MazeTurn ((laberinto) =>{
+                const temp = [...laberinto]
+                const y = temp.findIndex((row) => {return row.indexOf("p") > -1})
+                const x = temp[y].findIndex((column) => {return column === "p"})
+
+                if(temp[y][x+1] === "+" || temp[y][x+1] === "|"){
+                    console.log("Chocaste")
+                } else if(temp[y][x+1] === "g"){
+                    temp[y][x] = " "
+                    temp[y][x+1] = "p"
+                    alert("FELICIDADES!!! Has logrado escapar. Ingresa otros valores para comenzar de nuevo")
+                    MazeTurn(null)
+                } else {
+                    temp[y][x] = " "
+                    temp[y][x+1] = "p"
+                }
+                return temp
+            })
+        } else if (Move == "arrowup" || Move == "w") {
+            MazeTurn ((laberinto) =>{
+                const temp = [...laberinto]
+                const y = temp.findIndex((row) => {return row.indexOf("p") > -1})
+                const x = temp[y].findIndex((column) => {return column === "p"})
+
+                if(temp[y-1][x] === "+" || temp[y-1][x] === "-"){
+                    console.log("Chocaste")
+                } else if(temp[y-1][x] === "g"){
+                    temp[y][x] = " "
+                    temp[y-1][x] = "p"
+                    alert("FELICIDADES!!! Has logrado escapar. Ingresa otros valores para comenzar de nuevo")
+                    MazeTurn(null)
+                } else {
+                    temp[y][x] = " "
+                    temp[y-1][x] = "p"
+                }
+                return temp
+            })
+        } else if (Move == "arrowdown" || Move == "s") {
+            MazeTurn ((laberinto) =>{
+                const temp = [...laberinto]
+                const y = temp.findIndex((row) => {return row.indexOf("p") > -1})
+                const x = temp[y].findIndex((column) => {return column === "p"})
+
+                if(temp[y+1][x] === "+" || temp[y+1][x] === "-"){
+                    console.log("Chocaste")
+                } else if(temp[y+1][x] === "g"){
+                    temp[y][x] = " "
+                    temp[y+1][x] = "p"
+                    alert("FELICIDADES!!! Has logrado escapar. Ingresa otros valores para comenzar de nuevo")
+                    MazeTurn(null)
+                } else {
+                    temp[y][x] = " "
+                    temp[y+1][x] = "p"
+                }
+                return temp
+            })
+        }
+    }
+
+    window.onkeydown = EggMove
+
     return (
         <div id = 'gridMaze' css={style}>
             {
                 laberinto.map( (row, key1) =>
                     row.map( (part, key2) => {
                         if (part == "-" || part == "|" || part == "+") {
-                            return <div key={(key1*2+key2+2).toString()} css={StyleWall}></div>
+                            return <div key={(key1*5+key2+2).toString()} css={StyleWall}></div>
                         }
                         else if (part == "p"){
-                            return <div key={(key1*10+key2+5).toString()} css={StylePlayer}></div>
+                            return <div key={(key1*10+key2+13).toString()} css={StylePlayer}></div>
                         }
                         else if (part == "g"){
-                            return <div key={(key1*20+key2+10).toString()} css={StyleGoal}></div>
+                            return <div key={(key1*50+key2+16).toString()} css={StyleGoal}></div>
                         }
                         else {
                             return <div key={(key1*100+key2+3).toString()}>{part}</div>
