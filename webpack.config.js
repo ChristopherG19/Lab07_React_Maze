@@ -17,16 +17,14 @@ module.exports = {
                     options: {
                         presets: [
                             [
-                                "@babel/preset-react",
-                                {
-                                    runtime: 'automatic'
-                                }
+                                "@babel/preset-react"
                             ],
                             [
                                 '@babel/preset-env', 
                             ],
                         ],
-                        plugins: ['@babel/plugin-transform-runtime']
+                        cacheDirectory: true,
+                        plugins: ['@babel/plugin-transform-runtime'],
                     }
                 }
             },
