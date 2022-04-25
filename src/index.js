@@ -1,7 +1,7 @@
-/** @jsx jsx */
-import { css, jsx } from '@emotion/react'
 import React from "react";
 import ReactDOM from "react-dom/client";
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react'
 import PrintMaze from "./Components/Maze"
 
 const StyleTitulo = css`
