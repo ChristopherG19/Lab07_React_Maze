@@ -1,8 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react'
-import React from "react"
-import ReactDOM from "react-dom/client"
-import {useState} from 'react'
+import React from "react";
+import ReactDOM from "react-dom/client";
 import PrintMaze from "./Components/Maze"
 
 const StyleTitulo = css`
@@ -59,18 +58,18 @@ const MazeN = async (w,h) => {
 
 const App = () => {
 
-    const [Maze, setMaze] = useState(null)
-    const [width, setWidth] = useState(4)
-    const [height, setHeight] = useState(4)
+    const [Maze, setMaze] = React.useState(null)
+    const [width, setWidth] = React.useState(4)
+    const [height, setHeight] = React.useState(4)
         
     const setW = (val) => {
         const inputw = Number(val.target.value)
-        inputw ? setWidth(inputw) : width = 4
+        setWidth(inputw)
     }
 
     const setH = (val) => {
         const inputh = Number(val.target.value)
-        inputh ? setHeight(inputh) : height = 4
+        setHeight(inputh)
     }
 
     const NewMazeGen = async() => {
