@@ -82,7 +82,6 @@ const App = () => {
         setMaze(MazeNw)
     }
     
-
     return (
         <div id='Container' css={StyleContainer}>
             <h1 id ="Titulo" css={StyleTitulo}> Eggcellent Amazeing</h1>
