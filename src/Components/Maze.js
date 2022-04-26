@@ -2,9 +2,18 @@ import React from "react";
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react'
 const PrintMaze = ({laberinto, width, height, MazeTurn}) => {
+
+    //console.log(width) 
+    //console.log(height)
+
+    /*
+        width: 1 -> 4, 2 -> 7, 3 -> 10, 4 -> 13
+        height: 1 -> 3, 2 -> 5, 3 -> 7, 4 -> 9
+    */
     
-    const widthR =  parseInt(height, 10)*2 + 1
-    const heightR = (Number(width * 2) + Number( width + 1 ))
+    const widthR =  parseInt(width, 10)*3 + 1
+    const heightR = parseInt(height, 10)*2 + 1
+
 
     const style = css`
     margin-top: 25px;
@@ -12,8 +21,8 @@ const PrintMaze = ({laberinto, width, height, MazeTurn}) => {
     background: #34495E;
     display: grid;
     text-align: center;
-    grid-template-columns: repeat(${heightR}, 60px);
-    grid-template-rows: repeat(${widthR}, 40px);
+    grid-template-columns: repeat(${widthR}, 60px);
+    grid-template-rows: repeat(${heightR}, 40px);
     justify-items: center;
     `
 
@@ -130,7 +139,7 @@ const PrintMaze = ({laberinto, width, height, MazeTurn}) => {
             {
                 laberinto.map( (row, key1) =>
                     row.map( (part, key2) => {
-                        if (part == "-" || part == "|" || part == "+") {
+                        if (part == "+" || part == "-" || part == "|") {
                             return <div key={(key1*5+key2+2).toString()} css={StyleWall}></div>
                         }
                         else if (part == "p"){
