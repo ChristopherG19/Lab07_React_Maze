@@ -1,8 +1,8 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
+import React from 'react'
+import ReactDOM from 'react-dom/client'
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react'
-import PrintMaze from "./Components/Maze"
+import PrintMaze from './Components/Maze'
 
 const StyleTitulo = css`
 color: #fff;
@@ -40,61 +40,48 @@ flex-direction:column;
 align-items:center;
 `
 
-const MazeN = async (w,h) => {
-
-    const urlOrigen = 'https://maze.juanelcaballo.club/?type=json&w=%&h=#'
-    const NewWeight = urlOrigen.replace('%',w)
-    const urlFinal = NewWeight.replace('#',h)
-    
-    const NewMaze = await fetch(urlFinal)
-    .then((response) => {
-        return response.json()
-    })
-    .then((responseInJSON) =>{
-        return responseInJSON
-    })
-
-    return NewMaze
+const MazeN = async (w, h) => {
+  const urlOrigen = 'https://maze.juanelcaballo.club/?type=json&w=%&h=#'
+  const NewWeight = urlOrigen.replace('%', w)
+  const urlFinal = NewWeight.replace('#', h)
+  const NewMaze = await fetch(urlFinal)
+    .then((response) => response.json())
+    .then((responseInJSON) => responseInJSON)
+  return NewMaze
 }
 
 const App = () => {
+  const [Maze, setMaze] = React.useState(null)
+  const [width, setWidth] = React.useState(4)
+  const [height, setHeight] = React.useState(4)
+  const setW = (val) => {
+    const inputw = Number(val.target.value)
+    setWidth(inputw)
+  }
+  const setH = (val) => {
+    const inputh = Number(val.target.value)
+    setHeight(inputh)
+  }
+  const NewMazeGen = async () => {
+    const NewM = await MazeN(width, height)
+    setMaze(NewM)
+  }
 
-    const [Maze, setMaze] = React.useState(null)
-    const [width, setWidth] = React.useState(4)
-    const [height, setHeight] = React.useState(4)
-        
-    const setW = (val) => {
-        const inputw = Number(val.target.value)
-        setWidth(inputw)
-    }
-
-    const setH = (val) => {
-        const inputh = Number(val.target.value)
-        setHeight(inputh)
-    }
-
-    const NewMazeGen = async() => {
-        const NewM = await MazeN(width, height)
-        setMaze(NewM)
-    }
-
-    const FinalMaze = async(MazeNw) => {
-        setMaze(MazeNw)
-    }
-    
-    return (
-        <div id='Container' css={StyleContainer}>
-            <h1 id ="Titulo" css={StyleTitulo}> Eggcellent Amazeing</h1>
-            <div id="settings" css={StyleSettings}>
-                <input id="width" type="number" min="1" max="10" placeholder="Ancho" onChange={setW} css={StyleInput}/>
-                <input id="height" type="number" min="1" max="10" placeholder="Alto" onChange={setH} css={StyleInput}/>
-                <button id="submit" onClick={NewMazeGen} css={StyleSubmit}>Generar Laberinto</button>
-            </div>
-            {Maze && <PrintMaze laberinto={Maze} width={width} height={height} MazeTurn={FinalMaze}/>}
-        </div>
-    )
+  const FinalMaze = async (MazeNw) => {
+    setMaze(MazeNw)
+  }
+  return (
+    <div id="Container" css={StyleContainer}>
+      <h1 id="Titulo" css={StyleTitulo}> Eggcellent Amazeing</h1>
+      <div id="settings" css={StyleSettings}>
+        <input id="width" type="number" min="1" max="10" placeholder="Ancho" onChange={setW} css={StyleInput} />
+        <input id="height" type="number" min="1" max="10" placeholder="Alto" onChange={setH} css={StyleInput} />
+        <button type="submit" id="submit" onClick={NewMazeGen} css={StyleSubmit}>Generar Laberinto</button>
+      </div>
+      {Maze && <PrintMaze laberinto={Maze} width={width} height={height} MazeTurn={FinalMaze} />}
+    </div>
+  )
 }
 
-const root = ReactDOM.createRoot(document.getElementById("root"))
-root.render(<App/>)
-  
+const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(<App />)
