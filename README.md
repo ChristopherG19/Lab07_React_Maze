@@ -5,4 +5,4 @@ Se trabajó también con Electron.js para la creación de un ejecutable que se e
 - https://drive.google.com/file/d/12IVzqTyeYBjD9as5lxphZ4v6tDG_b-jz/view?usp=sharing
 
 Link del laberinto corriendo en un servidor web:
-- https://juanelcaballo.club/20541/Lab07/dist/index.html
+- https://juanelcaballo.club/20541/Lab07/index.html
