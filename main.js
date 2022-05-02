@@ -1,14 +1,14 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 const { app, BrowserWindow } = require('electron')
-const path = require('path')
 
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 1280,
     height: 1024,
-    webPreferences:{
-        nodeIntegration: true
-    }
+    webPreferences: {
+      nodeIntegration: true,
+    },
   })
 
   // and load the index.html of the app.
